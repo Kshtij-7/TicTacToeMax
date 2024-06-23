@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (cell.textContent === '' && (nextBoard === null || nextBoard == bigCellIndex || boardWinners[nextBoard] !== null)) {
                 cell.textContent = currentPlayer;
+                cell.style.color = currentPlayer==='X' ? 'blue' : 'red';
                 
                 if (checkWin(cell.parentElement)) {
                     boardWinners[bigCellIndex] = currentPlayer;
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function markBoardWinner(board, winner) {
         for (let cell of board.children) {
             cell.textContent = winner;
-            cell.style.color = 'gray';
+            cell.style.color = currentPlayer==='X' ? 'blue' : 'red';
             cell.style.cursor = 'default';
         }
     }
