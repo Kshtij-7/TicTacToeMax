@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextBoard = null;
     const boardWinners = Array(9).fill(null);
     let gameOver = false;
+    document.getElementById('move').textContent = `Current player: X`;
+    document.getElementById('reset').addEventListener('click', ()=>{
+        window.location.reload();
+    });
 
     cells.forEach(cell => {
         cell.addEventListener('click', () => {
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (cell.textContent === '' && (nextBoard === null || nextBoard == bigCellIndex || boardWinners[nextBoard] !== null)) {
                 cell.textContent = currentPlayer;
-                cell.style.color = currentPlayer==='X' ? 'blue' : 'red';
+                cell.classList.add(`${currentPlayer}-cell`);
                 
                 if (checkWin(cell.parentElement)) {
                     boardWinners[bigCellIndex] = currentPlayer;
@@ -23,11 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         gameOver = true;
                         alert(`${currentPlayer} wins the game!`);
                         document.getElementById('winner').innerText = `${currentPlayer} wins the game!`;
-                    }
-                    if (checkOverallDraw()) {
-                        gameOver = true;
-                        alert("The game is a draw!");
-                        document.getElementById('winner').innerText = "The game is a draw!";
                     }
                 } else if (checkDraw(cell.parentElement)) {
                     boardWinners[bigCellIndex] = 'D';
@@ -41,9 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 nextBoard = boardWinners[smallCellIndex] !== null ? null : smallCellIndex;
                 highlightPlayableCells();
-
+                
                 currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                document.getElementById('move').innerText = `Move: ${currentPlayer}`;
+                document.getElementById('move').textContent = `Current player: ${currentPlayer}`;
+                
             }
         });
     });
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function markBoardWinner(board, winner) {
         for (let cell of board.children) {
             cell.textContent = winner;
-            cell.style.color = currentPlayer==='X' ? 'blue' : 'red';
+            cell.style.color = 'gray';
             cell.style.cursor = 'default';
         }
     }

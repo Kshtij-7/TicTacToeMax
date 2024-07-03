@@ -107,3 +107,11 @@ body {
 .highlight {
     background-color: #e0e0e0;
 }
+
+.X-cell {
+    color: #00f;
+}
+
+.O-cell {   
+    color: #f00;
+}
