@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameOver = false;
     document.getElementById('move').textContent = `Current player: X`;
     document.getElementById('reset').addEventListener('click', ()=>{
-        window.location.reload();
+        const connf = confirm("Are you sure you want to reset the game?");
+        if(connf){
+            window.location.reload();
+        }
     });
 
     cells.forEach(cell => {
